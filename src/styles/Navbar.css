@@ -1,0 +1,17 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar button {
+    background: var(--COLOR-RED-DARK);
+    padding: 2dvh;
+    border: 0;
+    font-size: large;
+    max-height: fit-content;
+    font-family: inherit;
+    width: fit-content;
+    border-radius: 8px;
+}
