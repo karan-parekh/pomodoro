@@ -1,7 +1,5 @@
 export default function Footer() {
     return (
-        <div>
-            <p>Copyrights</p>
-        </div>
+        <div className="mt-4"></div>
     )
 }
