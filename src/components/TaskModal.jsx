@@ -3,10 +3,10 @@ import { useTaskStore } from "../store"
 import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-export default function Modal (props) {
+export default function TaskModal (props) {
   const { children, showDelete, task } = props
   const addTask = useTaskStore(state => state.addTask)
-  const editTask = useTaskStore(state => state.editTask)
+  const editTitle = useTaskStore(state => state.editTitle)
   const setModal = useTaskStore(state => state.setModal)
   const setCurrentTask = useTaskStore(state => state.setCurrentTask)
   const modal = useTaskStore(state => state.modal)
@@ -20,7 +20,7 @@ export default function Modal (props) {
       alert('Title cannot be empty')
       return
     }
-    editTask(task.id, title)
+    editTitle(task.id, title)
     const updatedTask = useTaskStore.getState().tasks.find(t => t.id === task.id)
     setCurrentTask(updatedTask)
     setModal({action: null})
@@ -70,7 +70,7 @@ export default function Modal (props) {
   )
 }
 
-function ModalButton (props) {
+export function ModalButton (props) {
   const { children, primary, onClick } = props
   return (
     <button onClick={onClick} className={classNames(

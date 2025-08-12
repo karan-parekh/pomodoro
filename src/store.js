@@ -13,6 +13,16 @@ const timerStore = (set) =>({
     decrementTime: () => set((store) => ({time: store.time - 1}))
 })
 
+const userStore = (set) => ({
+    // States
+    user: null,
+    loginModal: false,
+    // Setter Function
+    setUser: (state) => set({user: state}),
+    updateUser: () => {},
+    setLoginModal: (state) => set({loginModal: state}),
+})
+
 /* New Task object sample
 const newTask = {
     id: Date.now().toString(),
@@ -36,9 +46,13 @@ const taskStore = (set) => ({
     removeTask: (taskId) => set(
         (store) => ({tasks: store.tasks.filter((task) => task.id !== taskId)})
     ),
-    editTask: (taskId, title) => 
+    editTitle: (taskId, title) => 
         set((store) => ({
             tasks: store.tasks.map((task) => task.id === taskId ? {...task, title: title} : task)
+        })),
+    editStatus: (taskId, status) => 
+        set((store) => ({
+            tasks: store.tasks.map((task) => task.id === taskId ? {...task, status: status} : task)
         })),
     clearAllTasks: () => set({tasks: []}),
     computeTimeSpent: (task) => (task.pomo_count * 25 * 60) // seconds
@@ -47,4 +61,4 @@ const taskStore = (set) => ({
 
 export const useTimerStore = create(timerStore)
 export const useTaskStore = create(persist(devtools(taskStore), {name: 'taskStore'}))
-// export const useTaskStore = create(persist(taskStore), {name: 'taskStore'})
+export const useUserStore = create(persist(devtools(userStore), {name: 'userStore'}))

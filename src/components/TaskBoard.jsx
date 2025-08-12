@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Modal from "./Modal"
+import TaskModal from "./TaskModal"
 import { useTaskStore } from "../store"
 import classNames from "classnames"
 
@@ -11,8 +11,8 @@ export default function TaskBoard () {
 
   return (
     <div className='bg-red-400/60 mt-4 shadow-xl/25 rounded-xl flex flex-col w-sm p-4 items-center'>
-      {modal.action === 'addTask' && <Modal>Add Task</Modal>}
-      {modal.action === 'editTask' && <Modal showDelete task={modal.task}>Edit Task</Modal>}
+      {modal.action === 'addTask' && <TaskModal>Add Task</TaskModal>}
+      {modal.action === 'editTask' && <TaskModal showDelete task={modal.task}>Edit Task</TaskModal>}
       <div className="flex items-center text-left px-2">
         {currentTask ? currentTask.title : 'No Current task'}
       </div>
@@ -53,6 +53,7 @@ function Task (props) {
   const setCurrentTask = useTaskStore(state => state.setCurrentTask)
   const currentTask = useTaskStore(state => state.currentTask)
   const setModal = useTaskStore(state => state.setModal)
+  const editStatus = useTaskStore(state => state.editStatus)
   const keepBorder = task === currentTask
 
   return (
@@ -64,7 +65,11 @@ function Task (props) {
             {'border-transparent': !keepBorder},
         )}>
         <div className="text-sm flex items-center">
-          <FontAwesomeIcon className="mr-2 z-1 cursor-pointer" icon="fa-solid fa-circle-check" />
+          <FontAwesomeIcon 
+            icon="fa-solid fa-circle-check"
+            className="mr-2 z-1 cursor-pointer text-red-400/40" 
+            onClick={() => editStatus(task.id, 'DONE')}
+          />
           <p className="text-rose-900 text-wrap text-left">{task.title}</p>
         </div>
         <div className="flex items-center justify-center">
