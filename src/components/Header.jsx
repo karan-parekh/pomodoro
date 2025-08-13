@@ -10,7 +10,7 @@ export default function Header() {
     // const setLoginModal = useUserStore((state) => state.setLoginModal)
 
     return (
-        <div className="flex w-full items-center justify-between rounded-full px-4 py-2 shadow-xl/25">
+        <div className="flex w-full items-center justify-between rounded-full px-4 py-4 shadow-xl/25">
             {loginModal && <LoginModal></LoginModal>}
             <div className="flex">
                 <div className="mx-1 text-red-400/90">

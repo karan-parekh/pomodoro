@@ -7,7 +7,7 @@ export default function Dropdown(props) {
     const toggleDropdown = () => setIsOpen(!isOpen)
 
     return (
-        <div className="relative inline-block text-left">
+        <div className="relative inline-block text-left px-2 py-1 bg-rose-900 rounded-full">
             <div>
                 <button
                     onClick={toggleDropdown}
