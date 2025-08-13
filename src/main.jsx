@@ -19,7 +19,7 @@ library.add(fas, far, fab)
 // import Footer from './components/Footer'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+    <StrictMode>
+        <App />
+    </StrictMode>
 )

@@ -1,6 +1,3 @@
-
 export default function Assort() {
-    return (
-        <h3>Assort</h3>
-    )
+    return <h3>Assort</h3>
 }
