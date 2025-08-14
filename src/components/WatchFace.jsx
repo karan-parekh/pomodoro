@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import { useEffect } from 'react'
 import { useTimerStore } from '../store'
 
-
 function WatchFace() {
     const time = useTimerStore((state) => state.time)
     const isStarted = useTimerStore((state) => state.isStarted)
@@ -35,8 +34,8 @@ function WatchFace() {
     }
 
     return (
-        <div className="mt-4 sm:mt-6 w-full flex sm:w-md flex-col items-center rounded-xl bg-red-400/60 p-4 shadow-xl/25">
-            <div className="flex justify-around w-full">
+        <div className="mt-4 flex w-full flex-col items-center rounded-xl bg-red-400/60 p-4 shadow-xl/25 sm:mt-6 sm:w-md">
+            <div className="flex w-full justify-between gap-4">
                 <WatchFaceButton selected={activeTimer === 1500} seconds={1500}>
                     Focus Time
                 </WatchFaceButton>
@@ -78,7 +77,7 @@ function WatchFaceButton(props) {
         <button
             onClick={() => handleOnClick(seconds)}
             className={classNames(
-                'cursor-pointer rounded-md bg-transparent sm:px-3 sm:py-1 py-2 px-1',
+                'w-full cursor-pointer rounded-md bg-transparent p-2 sm:px-3 sm:py-1',
                 {
                     'bg-white text-rose-900 inset-shadow-sm/60 hover:inset-shadow-sm/90':
                         selected,
