@@ -10,7 +10,7 @@ export default function TaskBoard() {
     const currentTask = useTaskStore((state) => state.currentTask)
 
     return (
-        <div className="mt-4 flex w-full sm:w-md flex-col items-center rounded-xl bg-red-400/60 p-4 shadow-xl/25">
+        <div className="mt-4 flex w-full flex-col items-center rounded-xl bg-red-400/60 p-4 shadow-xl/25 sm:w-md">
             {modal.action === 'addTask' && <TaskModal>Add Task</TaskModal>}
             {modal.action === 'editTask' && (
                 <TaskModal showDelete task={modal.task}>

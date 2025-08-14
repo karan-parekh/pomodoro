@@ -11,7 +11,7 @@ export default function Header() {
 
     return (
         <div className="flex w-full items-center justify-between rounded-full px-4 py-2 shadow-xl/25">
-            {loginModal && <LoginModal/>}
+            {loginModal && <LoginModal />}
             <div className="flex">
                 <div className="mx-1 text-red-400/90">
                     <FontAwesomeIcon icon="fa-solid fa-clock" />

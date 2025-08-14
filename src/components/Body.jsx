@@ -3,7 +3,7 @@ import WatchFace from './WatchFace'
 
 export default function Body() {
     return (
-        <div className="flex sm:w-full flex-col items-center">
+        <div className="flex flex-col items-center sm:w-full">
             <WatchFace />
             <TaskBoard />
         </div>
