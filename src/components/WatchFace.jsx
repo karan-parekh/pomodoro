@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useTaskStore, useTimerStore } from '../store'
 import { POMO_TIME, S_BREAK, L_BREAK } from '../store'
 
-function WatchFace() {
+export default function WatchFace() {
     const time = useTimerStore((state) => state.time)
     const isStarted = useTimerStore((state) => state.isStarted)
     const activeTimer = useTimerStore((state) => state.activeTimer)
@@ -120,5 +120,3 @@ function WatchFaceButton(props) {
 function padTime(value) {
     return String(value).padStart(2, '0')
 }
-
-export default WatchFace

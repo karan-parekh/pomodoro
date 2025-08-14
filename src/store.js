@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 import { persist, devtools } from 'zustand/middleware'
 
-export const POMO_TIME = 3
-export const S_BREAK = 1
-export const L_BREAK = 2
+export const POMO_TIME = 1500
+export const S_BREAK = 300
+export const L_BREAK = 900
 
 const timerStore = (set) => ({
     // States

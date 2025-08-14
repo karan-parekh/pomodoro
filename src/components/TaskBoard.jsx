@@ -61,24 +61,25 @@ function Task(props) {
     const editStatus = useTaskStore((state) => state.editStatus)
     const keepBorder = task === currentTask
 
-    const handleOnClick = () => {
+    const checkIconClick = () => {
         if (task.status === 'DONE') {
             editStatus(task.id, 'BACKLOG')
         } else {
             editStatus(task.id, 'DONE')
+            setCurrentTask(null)
         }
     }
 
     return (
         <button
-            onClick={() => setCurrentTask(task)}
+            // onClick={() => { task.status !== 'DONE' && setCurrentTask(task)}}
             className={classNames(
                 'mt-2 flex w-full cursor-pointer justify-between rounded-md border-x-3 bg-white p-2 text-red-400 shadow-xl/20 hover:border-red-900 hover:shadow-xl/30',
                 { 'border-red-900': keepBorder },
                 { 'border-transparent': !keepBorder }
             )}
         >
-            <div className="flex items-center text-sm">
+            <div className="flex flex-1 items-center text-sm">
                 <FontAwesomeIcon
                     icon="fa-solid fa-circle-check"
                     className={classNames(
@@ -86,15 +87,21 @@ function Task(props) {
                         { 'text-red-400/40': task.status !== 'DONE' },
                         { 'text-red-400': task.status === 'DONE' }
                     )}
-                    onClick={handleOnClick}
+                    onClick={checkIconClick}
                 />
-                <p
-                    className={classNames('text-left text-wrap text-rose-900', {
-                        'line-through': task.status === 'DONE',
-                    })}
+                <div
+                    onClick={() => {
+                        task.status !== 'DONE' && setCurrentTask(task)
+                    }}
+                    className={classNames(
+                        'flex-1 text-left text-wrap text-rose-900',
+                        {
+                            'line-through': task.status === 'DONE',
+                        }
+                    )}
                 >
                     {task.title}
-                </p>
+                </div>
             </div>
             <div className="flex items-center justify-center">
                 <div>{task.pomo_count}</div>
