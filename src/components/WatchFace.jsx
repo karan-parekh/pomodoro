@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { useEffect } from 'react'
-import { useTimerStore } from '../store'
+import { useTaskStore, useTimerStore } from '../store'
+import { POMO_TIME, S_BREAK, L_BREAK } from '../store'
 
 function WatchFace() {
     const time = useTimerStore((state) => state.time)
@@ -9,16 +10,33 @@ function WatchFace() {
     const setIsStarted = useTimerStore((state) => state.setIsStarted)
     const decrementTime = useTimerStore((state) => state.decrementTime)
 
+    const currentTask = useTaskStore((state) => state.currentTask)
+    const incrementTaskPomo = useTaskStore((state) => state.incrementTaskPomo)
+    const incrementTotalPomo = useTaskStore((state) => state.incrementTotalPomo)
+
     useEffect(() => {
         if (!isStarted) return
         if (time === 0) {
             setIsStarted(false)
+            if (activeTimer === POMO_TIME) {
+                incrementTotalPomo()
+                if (currentTask) incrementTaskPomo(currentTask.id)
+            }
         }
 
         const interval = setInterval(decrementTime, 1000)
 
         return () => clearInterval(interval)
-    }, [isStarted, time, decrementTime, setIsStarted])
+    }, [
+        isStarted,
+        time,
+        decrementTime,
+        setIsStarted,
+        incrementTaskPomo,
+        currentTask,
+        activeTimer,
+        incrementTotalPomo,
+    ])
 
     let label = 'Start'
     if (isStarted) label = 'Pause'
@@ -36,13 +54,22 @@ function WatchFace() {
     return (
         <div className="mt-4 flex w-full flex-col items-center rounded-xl bg-red-400/60 p-4 shadow-xl/25 sm:mt-6 sm:w-md">
             <div className="flex w-full justify-between gap-4">
-                <WatchFaceButton selected={activeTimer === 1500} seconds={1500}>
+                <WatchFaceButton
+                    selected={activeTimer === POMO_TIME}
+                    seconds={POMO_TIME}
+                >
                     Focus Time
                 </WatchFaceButton>
-                <WatchFaceButton selected={activeTimer === 300} seconds={300}>
+                <WatchFaceButton
+                    selected={activeTimer === S_BREAK}
+                    seconds={S_BREAK}
+                >
                     Short Break
                 </WatchFaceButton>
-                <WatchFaceButton selected={activeTimer === 900} seconds={900}>
+                <WatchFaceButton
+                    selected={activeTimer === L_BREAK}
+                    seconds={L_BREAK}
+                >
                     Long Break
                 </WatchFaceButton>
             </div>

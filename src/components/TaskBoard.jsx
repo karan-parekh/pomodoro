@@ -8,6 +8,7 @@ export default function TaskBoard() {
     const setModal = useTaskStore((state) => state.setModal)
     const tasks = useTaskStore((state) => state.tasks)
     const currentTask = useTaskStore((state) => state.currentTask)
+    const totalPomo = useTaskStore((state) => state.totalPomo)
 
     return (
         <div className="mt-4 flex w-full flex-col items-center rounded-xl bg-red-400/60 p-4 shadow-xl/25 sm:w-md">
@@ -46,7 +47,7 @@ export default function TaskBoard() {
 
             <div className="mt-4 flex w-full justify-between rounded-md bg-red-400/40 px-4 py-2 text-sm text-neutral-100/90 shadow-xl/25">
                 <div>Tasks: {tasks.length}</div>
-                <div>Pomos: 2</div>
+                <div>Pomos: {totalPomo}</div>
             </div>
         </div>
     )
@@ -96,6 +97,7 @@ function Task(props) {
                 </p>
             </div>
             <div className="flex items-center justify-center">
+                <div>{task.pomo_count}</div>
                 <FontAwesomeIcon
                     icon="fa-solid fa-pen-to-square"
                     onClick={() => setModal({ action: 'editTask', task: task })}

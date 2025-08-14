@@ -1,11 +1,15 @@
 import { create } from 'zustand'
 import { persist, devtools } from 'zustand/middleware'
 
+export const POMO_TIME = 3
+export const S_BREAK = 1
+export const L_BREAK = 2
+
 const timerStore = (set) => ({
     // States
     isStarted: false,
-    activeTimer: 1500,
-    time: 1500,
+    activeTimer: POMO_TIME,
+    time: POMO_TIME,
     // Setter Functions
     setIsStarted: (newState) => set({ isStarted: newState }),
     setActiveTimer: (newState) => set({ activeTimer: newState }),
@@ -36,8 +40,11 @@ const taskStore = (set) => ({
     // States
     tasks: [],
     currentTask: null,
+    totalPomo: 0,
     modal: { action: null },
     // Setter Functions
+    incrementTotalPomo: () =>
+        set((store) => ({ totalPomo: store.totalPomo + 1 })),
     setModal: (newModal) => set({ modal: newModal }),
     setCurrentTask: (task) => set({ currentTask: task }),
     addTask: (newTask) =>
@@ -56,6 +63,14 @@ const taskStore = (set) => ({
         set((store) => ({
             tasks: store.tasks.map((task) =>
                 task.id === taskId ? { ...task, status: status } : task
+            ),
+        })),
+    incrementTaskPomo: (taskId) =>
+        set((store) => ({
+            tasks: store.tasks.map((task) =>
+                task.id === taskId
+                    ? { ...task, pomo_count: task.pomo_count + 1 }
+                    : task
             ),
         })),
     clearAllTasks: () => set({ tasks: [] }),
