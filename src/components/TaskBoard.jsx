@@ -60,6 +60,14 @@ function Task(props) {
     const editStatus = useTaskStore((state) => state.editStatus)
     const keepBorder = task === currentTask
 
+    const handleOnClick = () => {
+        if (task.status === 'DONE') {
+            editStatus(task.id, 'BACKLOG')
+        } else {
+            editStatus(task.id, 'DONE')
+        }
+    }
+
     return (
         <button
             onClick={() => setCurrentTask(task)}
@@ -72,10 +80,18 @@ function Task(props) {
             <div className="flex items-center text-sm">
                 <FontAwesomeIcon
                     icon="fa-solid fa-circle-check"
-                    className="z-1 mr-2 cursor-pointer text-red-400/40"
-                    onClick={() => editStatus(task.id, 'DONE')}
+                    className={classNames(
+                        'z-1 mr-2 cursor-pointer',
+                        { 'text-red-400/40': task.status !== 'DONE' },
+                        { 'text-red-400': task.status === 'DONE' }
+                    )}
+                    onClick={handleOnClick}
                 />
-                <p className="text-left text-wrap text-rose-900">
+                <p
+                    className={classNames('text-left text-wrap text-rose-900', {
+                        'line-through': task.status === 'DONE',
+                    })}
+                >
                     {task.title}
                 </p>
             </div>
